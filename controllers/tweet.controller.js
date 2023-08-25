@@ -36,4 +36,22 @@ const postTweet = async (req, res) => {
   }
 
 
-  module.exports = {tweetsUser,postTweet}
+
+  const deleteTweet = async (req,res) => {
+    const {id} = req.params;
+    try {
+        const tweet = await Tweet.findbyPk(id)
+        if(!tweet){
+            req.status(400).json({message:"Tweet not found"})
+        }
+        await Tweet.destroy({
+            where : {tweet_id:id}
+        })
+        res.status(204).json({message:"tweet has been deleted"})
+    } catch (error) {
+        res.status(500).json({ message: error.message });
+    }
+  }
+
+
+  module.exports = {tweetsUser,postTweet,deleteTweet}
