@@ -2,7 +2,7 @@ module.exports = (sequelize, DataTypes) => {
   const User = sequelize.define(
     "user",
     {
-      // Model attributes
+    
       user_id: {
         type: DataTypes.INTEGER,
         primaryKey: true,
@@ -21,16 +21,15 @@ module.exports = (sequelize, DataTypes) => {
       password: {
         type: DataTypes.STRING,
         allowNull: false,
-     
       },
       gender: {
         type: DataTypes.STRING,
         allowNull: false,
         validate: {
-            isIn: {
-                args: [['Male', 'Female']],
-                msg: "Gender must be Male or Female"
-              }
+          isIn: {
+            args: [["Male", "Female"]],
+            msg: "Gender must be Male or Female",
+          },
         },
       },
       email: {
@@ -52,8 +51,8 @@ module.exports = (sequelize, DataTypes) => {
     },
     {
       tableName: "users",
-      timestamps:false
+      timestamps: false,
     }
   );
-  return User
+  return User;
 };

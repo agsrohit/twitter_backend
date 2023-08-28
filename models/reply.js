@@ -26,6 +26,8 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.DATE,
       defaultValue: new Date().toISOString(),
     },
+  },{
+    
   });
 
 

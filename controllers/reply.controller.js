@@ -1,8 +1,9 @@
 const db = require("../config/db");
 const User = db.users;
 const Tweet = db.tweets;
-const Reply = db.reply
+const Reply = db.reply;
 
+// reply to the tweet
 const reply = async (req, res) => {
   const { id } = req.params;
   const { replyText } = req.body;
@@ -15,10 +16,11 @@ const reply = async (req, res) => {
     });
     res.status(200).json(reply);
   } catch (error) {
-    res.status(500).json({ message: error });
+    res.status(500).json({ message: error.message });
   }
 };
 
+// particular user comments on different tweets
 const tweetDetailsByUserreply = async (req, res) => {
   const user_id = req.user_id;
   try {
@@ -27,16 +29,27 @@ const tweetDetailsByUserreply = async (req, res) => {
         {
           model: Tweet,
           as: "tweetscommentbyuser",
+          through: { attributes: [] },
+          attributes: ["tweet_id", "tweet", "date_time"],
+          include: [
+            {
+              model: Reply,
+              attributes: ["reply_id","replyText", "date_time"],
+            },
+          ],
         },
       ],
       where: { user_id: user_id },
+      attributes: ["user_id", "name", "user_name"],
     });
+
     res.status(200).json(tweetDetailsByUser);
   } catch (error) {
-    res.status(500).json({ message: error });
+    res.status(500).json({ message: error.message });
   }
 };
 
+// comments done by users in particular tweet
 const userDetailsByTweetReply = async (req, res) => {
   const { id } = req.params;
   try {
@@ -45,22 +58,27 @@ const userDetailsByTweetReply = async (req, res) => {
         {
           model: User,
           as: "userscommentontweet",
-          attributes: ['user_id', 'name'], 
-        //   attributes:['name','user_name','reply'],
-        //    through: { attributes: [] },
-        //    attributes: ['name', 'user_name', 'reply']
-        //    include : ['name','user_name','reply']
-        //  attributes: { include: ['user_id','password','email','gender','reply'] },
-          
+          through: { attributes: [] },
+          attributes: ["user_id", "name", "user_name"],
+
+          include: [
+            {
+              model: Reply,
+              attributes: ["reply_id","replyText", "date_time"],
+            },
+          ],
         },
       ],
       where: { tweet_id: id },
+      attributes: ["tweet_id", "tweet", "date_time"],
     });
-    
+
     res.status(200).json(tweetDetailsByUser);
   } catch (error) {
-    res.status(500).json({ message: error });
+    res.status(500).json({ message: error.message });
   }
 };
+
+
 
 module.exports = { reply, tweetDetailsByUserreply, userDetailsByTweetReply };
