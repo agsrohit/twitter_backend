@@ -8,13 +8,9 @@ const {
 
 const likeRouter = express.Router();
 
-// like the tweet
-likeRouter.post("/:id", auth, like);
-
-// users details who like base on the tweet
-likeRouter.get("/:id", usersDetailsByTweet);
-
-// tweet details which like by users
-likeRouter.get("/", auth, tweetDetailsByUser);
+likeRouter
+  .post("/:id", auth, like)
+  .get("/:id", usersDetailsByTweet)
+  .get("/", auth, tweetDetailsByUser);
 
 module.exports = likeRouter;

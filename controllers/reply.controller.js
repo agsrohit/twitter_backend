@@ -34,7 +34,7 @@ const tweetDetailsByUserreply = async (req, res) => {
           include: [
             {
               model: Reply,
-              attributes: ["reply_id","replyText", "date_time"],
+              attributes: ["reply_id", "replyText", "date_time"],
             },
           ],
         },
@@ -64,7 +64,7 @@ const userDetailsByTweetReply = async (req, res) => {
           include: [
             {
               model: Reply,
-              attributes: ["reply_id","replyText", "date_time"],
+              attributes: ["reply_id", "replyText", "date_time"],
             },
           ],
         },
@@ -78,7 +78,5 @@ const userDetailsByTweetReply = async (req, res) => {
     res.status(500).json({ message: error.message });
   }
 };
-
-
 
 module.exports = { reply, tweetDetailsByUserreply, userDetailsByTweetReply };

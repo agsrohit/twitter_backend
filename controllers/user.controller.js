@@ -84,11 +84,11 @@ const tweetsByUser = async (req, res) => {
       include: [
         {
           model: Tweet,
-          attributes:['tweet_id','tweet','date_time']
+          attributes: ["tweet_id", "tweet", "date_time"],
         },
       ],
       where: { user_id: id },
-      attributes:['user_id','name','user_name'],
+      attributes: ["user_id", "name", "user_name"],
     });
     res.status(200).json(usertweets);
   } catch (error) {

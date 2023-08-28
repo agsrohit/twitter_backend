@@ -5,11 +5,12 @@ const {
   userDetailsByTweetReply,
   reply,
 } = require("../controllers/reply.controller");
+
 const replyRouter = express.Router();
 
-replyRouter.get("/", auth, tweetDetailsByUserreply);
-replyRouter.get("/:id", auth, userDetailsByTweetReply);
-replyRouter.post("/:id", auth, reply);
-replyRouter.delete("")
+replyRouter
+  .get("/", auth, tweetDetailsByUserreply)
+  .get("/:id", auth, userDetailsByTweetReply)
+  .post("/:id", auth, reply);
 
 module.exports = replyRouter;

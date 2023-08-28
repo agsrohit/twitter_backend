@@ -24,18 +24,20 @@ const follow = async (req, res) => {
 
 // to unfollow anyone
 const unfollow = async () => {
-  const user_id = req.user_id
+  const user_id = req.user_id;
   const { id } = req.params;
 
   try {
     await Follow.destroy({
-     where : { [Op.and]: [{ follower_user_id: user_id }, { following_user_id: id }],}
-    })
-    res.status(200).json({messsage:`You unfollow user who has id ${id}`})
+      where: {
+        [Op.and]: [{ follower_user_id: user_id }, { following_user_id: id }],
+      },
+    });
+    res.status(200).json({ messsage: `You unfollow user who has id ${id}` });
   } catch (error) {
     res.status(500).json({ message: error.message });
   }
-}
+};
 
 // following details
 const followingDetails = async (req, res) => {
@@ -81,4 +83,4 @@ const followerDetails = async (req, res) => {
   }
 };
 
-module.exports = { follow, followingDetails, followerDetails,unfollow };
+module.exports = { follow, followingDetails, followerDetails, unfollow };

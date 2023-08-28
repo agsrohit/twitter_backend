@@ -8,9 +8,8 @@ const sequelize = new Sequelize(
   {
     host: process.env.DB_HOST,
     dialect: process.env.DB_DIALECT,
-    logging:false
-  },
-  
+    logging: false,
+  }
 );
 
 const db = {};
@@ -26,7 +25,7 @@ db.reply = require("../models/reply")(sequelize, DataTypes);
 
 // user to tweet association
 db.users.hasMany(db.tweets, { foreignKey: "user_id" });
-db.tweets.belongsTo(db.users, { foreignKey: "user_id"});
+db.tweets.belongsTo(db.users, { foreignKey: "user_id" });
 
 // user to user association for follower and following
 db.users.belongsToMany(db.users, {
@@ -65,12 +64,12 @@ db.tweets.belongsToMany(db.users, {
 });
 
 // user to reply association
-db.users.hasMany(db.reply,{foreignKey:"user_id"})
-db.reply.belongsTo(db.users,{foreignKey:"user_id"})
+db.users.hasMany(db.reply, { foreignKey: "user_id" });
+db.reply.belongsTo(db.users, { foreignKey: "user_id" });
 
 // tweet to reply association
-db.tweets.hasMany(db.reply, { foreignKey: 'tweet_id' });
-db.reply.belongsTo(db.tweets, { foreignKey: 'tweet_id' });
+db.tweets.hasMany(db.reply, { foreignKey: "tweet_id" });
+db.reply.belongsTo(db.tweets, { foreignKey: "tweet_id" });
 
 sequelize.sync({ force: false });
 

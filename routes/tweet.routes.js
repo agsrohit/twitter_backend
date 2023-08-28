@@ -1,13 +1,18 @@
 const express = require("express");
 const auth = require("../middlewares/auth.middleware");
-const { postTweet, tweetsUser, deleteTweet } = require("../controllers/tweet.controller");
+const {
+  postTweet,
+  tweetsUser,
+  deleteTweet,
+  updateTweet,
+} = require("../controllers/tweet.controller");
 
 const tweetRouter = express.Router();
 
-tweetRouter.post("/", auth, postTweet);
-tweetRouter.get("/", auth, tweetsUser);
-tweetRouter.delete("/:id",auth,deleteTweet)
+tweetRouter
+  .post("/", auth, postTweet)
+  .get("/", auth, tweetsUser)
+  .delete("/:id", auth, deleteTweet)
+  .put("/:id", auth, updateTweet);
 
 module.exports = tweetRouter;
-
-

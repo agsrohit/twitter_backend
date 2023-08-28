@@ -4,8 +4,7 @@ const User = db.users;
 const Tweet = db.tweets;
 const { Op } = require("sequelize");
 
-
-// like and dislike tweets
+// like and not like tweets
 const like = async (req, res) => {
   const { id } = req.params;
   const user_id = req.user_id;
@@ -20,7 +19,7 @@ const like = async (req, res) => {
           [Op.and]: [{ user_id: user_id }, { tweet_id: id }],
         },
       });
-      res.status(200).json({message:"You dislike the post"});
+      res.status(200).json({ message: "You dislike the post" });
     } else {
       await Like.create({
         tweet_id: id,
@@ -32,7 +31,6 @@ const like = async (req, res) => {
     res.status(500).json({ message: error.message });
   }
 };
-
 
 // users who like the particular tweet
 const usersDetailsByTweet = async (req, res) => {
@@ -49,14 +47,13 @@ const usersDetailsByTweet = async (req, res) => {
       ],
 
       where: { tweet_id: id },
-      attributes:['tweet_id','tweet','date_time']
+      attributes: ["tweet_id", "tweet", "date_time"],
     });
     res.status(200).json(usersDetailsByTweet);
   } catch (error) {
     res.status(500).json({ message: error.message });
   }
 };
-
 
 // tweets which are like by particular user
 const tweetDetailsByUser = async (req, res) => {
@@ -68,11 +65,11 @@ const tweetDetailsByUser = async (req, res) => {
           model: Tweet,
           as: "tweetslikebyuser",
           through: { attributes: [] },
-          attributes:['tweet_id','tweet','date_time']
+          attributes: ["tweet_id", "tweet", "date_time"],
         },
       ],
       where: { user_id: user_id },
-      attributes: ["user_id", "name", "user_name"]
+      attributes: ["user_id", "name", "user_name"],
     });
     res.status(200).json(tweetDetailsByUser);
   } catch (error) {

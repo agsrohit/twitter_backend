@@ -1,3 +1,4 @@
+const { Op } = require("sequelize");
 const db = require("../config/db");
 const Tweet = db.tweets;
 const User = db.users;
@@ -35,6 +36,26 @@ const postTweet = async (req, res) => {
   }
 };
 
+// update the tweet
+const updateTweet = async (req, res) => {
+  const { id } = req.params;
+  const { tweet } = req.body;
+  const user_id = req.user_id;
+  try {
+    await Tweet.update(
+      { tweet: tweet, user_id: user_id },
+      {
+        where: {
+          [Op.and]: [{ tweet_id: id }, { user_id: user_id }],
+        },
+      }
+    );
+    res.status(200).json({ message: "Tweet has been updated" });
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+};
+
 // delete tweet
 const deleteTweet = async (req, res) => {
   const { id } = req.params;
@@ -52,4 +73,4 @@ const deleteTweet = async (req, res) => {
   }
 };
 
-module.exports = { tweetsUser, postTweet, deleteTweet };
+module.exports = { tweetsUser, postTweet, deleteTweet,updateTweet };

@@ -18,14 +18,6 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.DATE,
       defaultValue: new Date().toISOString(),
     },
-    // create_at: {
-    //   type: DataTypes.DATE,
-    //   defaultValue: new Date().toISOString(),
-    // },
-    // update_at: {
-    //   type: DataTypes.DATE,
-    //   defaultValue: new Date().toISOString(),
-    // },
   });
 
   return Tweet;

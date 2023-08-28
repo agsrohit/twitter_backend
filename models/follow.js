@@ -11,7 +11,7 @@ module.exports = (sequelize, DataTypes) => {
     },
     follower_user_id: {
       type: DataTypes.INTEGER,
-      allowNull : true,
+      allowNull: true,
       references: {
         model: User,
         key: "user_id",
@@ -21,7 +21,7 @@ module.exports = (sequelize, DataTypes) => {
     },
     following_user_id: {
       type: DataTypes.INTEGER,
-      allowNull:true,
+      allowNull: true,
       references: {
         model: User,
         key: "user_id",

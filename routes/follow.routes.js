@@ -1,5 +1,4 @@
 const express = require("express");
-
 const auth = require("../middlewares/auth.middleware");
 const {
   follow,
@@ -9,13 +8,9 @@ const {
 
 const followRouter = express.Router();
 
-// to follow someone
-followRouter.post("/:id", auth, follow);
-
-// following details
-followRouter.get("/following/:id", auth, followingDetails);
-
-// followers details
-followRouter.get("/followers/:id", auth, followerDetails);
+followRouter
+  .post("/:id", auth, follow)
+  .get("/following/:id", auth, followingDetails)
+  .get("/followers/:id", auth, followerDetails);
 
 module.exports = followRouter;
